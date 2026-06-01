@@ -1,6 +1,5 @@
 /**
  * Test 6: Subida - Coherencia del BPM (HTTP 400 Bad Request)
- * Desarrollado por: Lucas Sosa
  */
 testUtils.createTestButton("Test 6: Coherencia del BPM (BPM Inválido)", async (btn) => {
     // 1. Asegurar y guardar una sesión válida de productor
