@@ -62,12 +62,12 @@ function renderSamplesTable(samples) {
         tbody.appendChild(row);
     });
 }
-
+//validacion del modal borrado(ya estaba hecha pero debo entenderlo)
 async function deleteSample(id) {
     if (!confirm('¿Estás seguro de eliminar este sonido?')) return;
     try {
         await apiService.request(`/samples/${id}`, 'DELETE');
-        showModal('Eliminado', 'El sample ha sido borrado.');
+        showModal('Eliminado', 'El registro no existe o ya fue eliminado.');
         loadSamples();
     } catch (error) {
         showModal('Error', error.message);
