@@ -79,6 +79,23 @@ const uploadForm = document.getElementById('uploadForm');
 if (uploadForm) {
     uploadForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        /* Validacion en el frontend: Primero capturo el archivo en el frontend y analizo si el 
+           archivo es pesado para evitar ir al backend. Si el usuario manipula el frontend para 
+           saltearse esta validación, igualmente voy a tener la validación del backend
+        */
+        const audioFileInput = document.getElementById('audioFile');
+        const file = audioFileInput.files[0];
+
+        if (file) {
+            const MAX_SIZE_BYTES = 5 * 1024 * 1024;
+            if (file.size > MAX_SIZE_BYTES) {
+                showModal('Archivo muy pesado', 'El archivo supera el límite de tamaño permitido');
+                return; // Corta la ejecución, no se crea el FormData ni se envía nada al servidor
+            }
+        }
+
+
         const formData = new FormData();
         formData.append('display_name', document.getElementById('display_name').value);
         formData.append('category', document.getElementById('category').value);
@@ -91,7 +108,9 @@ if (uploadForm) {
             uploadForm.reset();
             loadSamples();
         } catch (error) {
-            //Si el error fue por el tamaño, el modal mostrará ese mensaje, con ese título. Si no, mostrará un título y mensaje de error genéricos.
+            /* Si el error fue por el tamaño, el modal mostrará ese mensaje, con ese título. 
+               Si no, mostrará un título y mensaje de error genéricos.
+            */
             if (error.message === 'El archivo supera el límite de tamaño permitido') {
                 showModal('Archivo muy pesado', error.message);
             } else {
