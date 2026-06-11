@@ -91,7 +91,13 @@ if (uploadForm) {
             uploadForm.reset();
             loadSamples();
         } catch (error) {
-            showModal('Error al subir', error.message);
+            //Si el error fue por el tamaño, el modal mostrará ese mensaje, con ese título. Si no, mostrará un título y mensaje de error genéricos.
+            if (error.message === 'El archivo supera el límite de tamaño permitido') {
+                showModal('Archivo muy pesado', error.message);
+            } else {
+                // Para cualquier otro error inesperado (como el 500)
+                showModal('Error al subir', error.message);
+            }
         }
     });
 }
