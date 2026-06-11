@@ -91,6 +91,15 @@ else
 
 // --- Manejo de errores global ---
 app.use((err, req, res, next) => {
+
+    // 1. Capturo el error de tamaño de Multer
+    if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(413).json({
+            //Este es el texto que se va a mostrar en el modal
+            message: 'El archivo supera el límite de tamaño permitido' 
+        });
+    }
+
     console.error(err.stack);
     res.status(500).json({ message: "Error en el servidor", error: err.message });
 });
