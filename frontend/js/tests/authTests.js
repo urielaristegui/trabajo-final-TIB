@@ -45,3 +45,22 @@ testUtils.createTestButton("Test Login - Usuario Incorrecto (Juan y 12345)", asy
         testUtils.setSuccess(btn);
     }
 });
+
+testUtils.createTestButton("Test Registro - Longitud Password", async (btn) => {
+    try {
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'agusveca1', password: 'ag20' }) 
+        });
+
+        const data = await response.json();
+        
+        if (response.status === 400) {
+            testUtils.setSuccess(btn);
+        }
+
+    } catch (error) {
+        console.error("Error al ejecutar el test del botón:", error);
+    }
+});

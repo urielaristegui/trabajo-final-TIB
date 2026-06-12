@@ -28,6 +28,10 @@ class AuthController
             if (!username || !password) {
                 return res.status(400).json({ message: "Usuario y contraseña son requeridos." });
             }
+            
+            if (password.length < 6) {
+                return res.status(400).json({ message: "La contraseña es demasiado corta" });
+            }
 
             const hashedPassword = await bcrypt.hash(password, 10);            
             
@@ -63,6 +67,7 @@ class AuthController
             if (!username || !password) {
                 return res.status(400).json({ message: "Credenciales incompletas." });
             }
+
 
             // El repositorio ahora devuelve el usuario con su ROL gracias al JOIN en el SP
             const user = await userRepo.findByUsername(username);
