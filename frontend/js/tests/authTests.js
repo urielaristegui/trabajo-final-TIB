@@ -56,6 +56,8 @@ testUtils.createTestButton("Test Registro - Longitud Password", async (btn) => {
 
         const data = await response.json();
         
+        testUtils.log(data);
+
         if (response.status === 400) {
             testUtils.setSuccess(btn);
         }
