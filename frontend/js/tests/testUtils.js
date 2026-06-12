@@ -5,6 +5,22 @@
     // Referencia al contenedor de resultados
     console: document.getElementById('api-console'),
 
+    /**
+ * Función para asegurar independencia de los tests de samples 
+ * y no depender de otro test para tener un token de sesión válido
+ */
+   async okLogin(){
+        // 1. Login como productor (pepe) para obtener un token válido
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'pepe', password: '12345' }) // Usamos pepe hardcodeado
+        });
+        const data = await response.json();
+        // Guardamos el token para tests de samples
+        localStorage.setItem('test_token', data.token);
+    },
+
     // Función para crear botones de test dinámicamente
     createTestButton(label, testFn) {
         const btn = document.createElement('button');
