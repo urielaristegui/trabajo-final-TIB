@@ -67,10 +67,10 @@ async function deleteSample(id) {
     if (!confirm('¿Estás seguro de eliminar este sonido?')) return;
     try {
         await apiService.request(`/samples/${id}`, 'DELETE');
-        showModal('Eliminado', 'El registro no existe o ya fue eliminado.');
+        showModal('Eliminado', 'El registro ya fue eliminado.');
         loadSamples();
     } catch (error) {
-        showModal('Error', error.message);
+        showModal('ERROR: El registro no existe o ya fue eliminado', error.message);
     }
 }
 

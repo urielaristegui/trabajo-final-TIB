@@ -1,23 +1,7 @@
-/**
- * Función para asegurar independencia de los tests de samples 
- * y no depender de otro test para tener un token de sesión válido
- */
- async function okLogin()
- {
-    // 1. Login como productor (pepe) para obtener un token válido
-     const response = await fetch('/api/auth/login', {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ username: 'pepe', password: '12345' }) // Usamos pepe hardcodeado
-     });
-     const data = await response.json();
-     // Guardamos el token para tests de samples
-     localStorage.setItem('test_token', data.token);
- }
 
 testUtils.createTestButton("9. Eliminación - Borrado Fantasma (HTTP 404)", async (btn) => {
     //asegurar y guardar la sesion valida
-    await okLogin();
+    await testUtils.okLogin();
     
     // 1. Buscamos en la memoria del navegador el token que guardó la función de Login (el "pase VIP").
     const token = localStorage.getItem('test_token');      
