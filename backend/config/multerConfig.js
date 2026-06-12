@@ -41,7 +41,11 @@ const fileFilter = (req, file, cb) => {
     }
 };
 
-const upload = multer({ storage, fileFilter });
+const upload = multer({ 
+    storage, 
+    fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 } // Acá limito el tamaño maximo a 5 MB
+});
 
 // 'audioFile' es el nombre del campo en el formulario
 module.exports = upload.single('audioFile');
