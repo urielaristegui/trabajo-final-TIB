@@ -1,26 +1,9 @@
 /**
- * Función para asegurar independencia de los tests de samples 
- * y no depender de otro test para tener un token de sesión válido
- */
- async function okLogin()
- {
-    // 1. Login como productor (pepe) para obtener un token válido
-     const response = await fetch('/api/auth/login', {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ username: 'pepe', password: '12345' }) // Usamos pepe hardcodeado
-     });
-     const data = await response.json();
-     // Guardamos el token para tests de samples
-     localStorage.setItem('test_token', data.token);
- }
-
-/**
  * Test: GET /api/samples/my-samples
  */
  testUtils.createTestButton("Test Listar Mis Samples", async (btn) => {
     // 1. Asegurar y guardar una sesión válida
-    await okLogin();
+    await testUtils.okLogin();
     const token = localStorage.getItem('test_token');
     
     // 2. Realizar la petición
@@ -38,7 +21,7 @@
  */
 testUtils.createTestButton("Test Subir Sample (Simulado)", async (btn) => {
     // 1. Asegurar y guardar una sesión válida
-    await okLogin();
+    await testUtils.okLogin();
     const token = localStorage.getItem('test_token');
     
     // Creamos un FormData
