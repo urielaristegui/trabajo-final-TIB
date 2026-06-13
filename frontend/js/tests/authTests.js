@@ -55,10 +55,7 @@ testUtils.createTestButton("Test Registro - Longitud Password", async (btn) => {
         });
 
         const data = await response.json();
-<<<<<<< HEAD
-=======
         
->>>>>>> origin/main
         testUtils.log(data);
 
         if (response.status === 400) {
@@ -69,7 +66,3 @@ testUtils.createTestButton("Test Registro - Longitud Password", async (btn) => {
         console.error("Error al ejecutar el test del botón:", error);
     }
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/main
