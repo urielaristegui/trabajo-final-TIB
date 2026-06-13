@@ -2,7 +2,6 @@
 * Project     : Sample Vault
 * Author      : Tecnologías Informáticas B - Facultad de Ingeniería - UNMdP
 * License     : http://www.gnu.org/licenses/gpl.txt  GNU GPL 3.0
-* Date        : Marzo 2026
 */
 
 const fileHelper = require('../utils/fileHelper');
@@ -29,6 +28,17 @@ class SampleController
                 return res.status(400).json({ message: "El nombre y la categoría son obligatorios." });
             }
 
+            // --- VALIDACIÓN DEL TEST 6 (Coherencia del BPM) ---
+            const parsedBpm = Number(bpm);
+            if (isNaN(parsedBpm) || parsedBpm < 20 || parsedBpm > 300) {
+                // Si el BPM es ilógico, borramos el archivo físico para no dejar basura
+                fileHelper.deleteFile(`/uploads/${req.file.filename}`);
+                return res.status(400).json({ 
+                    message: "BPM inválido. Ingrese un valor numérico correcto" 
+                });
+            }
+            // ----------------------------------------------------------
+
             const userId = req.userId; // Proveniente del verifyToken
             const filename = req.file.filename;
             const filePath = `/uploads/${filename}`;
@@ -39,7 +49,7 @@ class SampleController
                 filename,
                 display_name,
                 category,
-                bpm: parseInt(bpm) || 0,
+                bpm: parsedBpm, // Guardamos el número ya validado
                 file_path: filePath
             });
 
@@ -69,6 +79,7 @@ class SampleController
         }
         catch (error)
         {
+            // Si hay un error, respondemos con código 500 (Internal Server Error)
             res.status(500).json({ message: "Error al recuperar la biblioteca.", error: error.message });
         }
     }
