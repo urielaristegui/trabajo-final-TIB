@@ -49,6 +49,10 @@ if (registerForm)
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+        if (password.length < 6) {
+            showModal('Contraseña corta', 'Debe tener por lo menos 6 caracteres');
+            return;
+        }
 
         try 
         {
@@ -64,3 +68,4 @@ if (registerForm)
         }
     });
 }
+

@@ -84,7 +84,7 @@ class SampleController
         }
     }
 
-    // Eliminar un sample de la biblioteca
+    // Eliminar un sample de la biblioteca  validacion del backend
     async deleteSample(req, res) 
     {
         try 
