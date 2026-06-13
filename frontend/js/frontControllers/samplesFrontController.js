@@ -2,7 +2,6 @@
 * Project     : Sample Vault
 * Author      : Tecnologías Informáticas B - Facultad de Ingeniería - UNMdP
 * License     : http://www.gnu.org/licenses/gpl.txt  GNU GPL 3.0
-* Date        : Marzo 2026
 */
 
 // Al cargar la página, traer los samples del usuario
