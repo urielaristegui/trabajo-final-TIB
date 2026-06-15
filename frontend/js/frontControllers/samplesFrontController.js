@@ -70,7 +70,7 @@ async function deleteSample(id) {
         showModal('Eliminado', 'El registro ya fue eliminado.');
         loadSamples();
     } catch (error) {
-        showModal('ERROR: El registro no existe o ya fue eliminado', error.message);
+        showModal('Error', error.message);
     }
 }
 

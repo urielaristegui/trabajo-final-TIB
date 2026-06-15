@@ -1,5 +1,5 @@
 
-testUtils.createTestButton("9. Eliminación - Borrado Fantasma (HTTP 404)", async (btn) => {
+testUtils.createTestButton("Eliminación - Borrado Fantasma (HTTP 404)", async (btn) => {
     //asegurar y guardar la sesion valida
     await testUtils.okLogin();
     
